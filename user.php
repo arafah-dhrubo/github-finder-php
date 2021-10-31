@@ -1,4 +1,3 @@
-<?php include_once 'partials/header.php' ?>
 <?php
 function error($msg){
     $response = [];
@@ -14,9 +13,9 @@ if($accessToken==""){
 }
 
 // $URL = "https://api.github.com/user/repos?/authorization_request=".$accessToken."?page=1&per_page=1000";
-$URL = "https://api.github.com/user/repos";
+$URL = "https://api.github.com/user";
 var_dump($accessToken);
-$authHeader = "Authorization: token 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";
+$authHeader = "Authorization: token $accessToken";
 $userAgentHeader = "User-Agent: testapi"; 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $URL);
@@ -27,13 +26,6 @@ $response = curl_exec($ch);
 
 $data = json_decode($response);
 curl_close($ch);
-foreach($data as $id=>$repo){
-    if($repo->private == 'true'){
-    echo '<pre>';
-    var_dump($repo->name);
-    echo '</pre>';
-}
-
-}
 ?>
-<?php include_once 'partials/footer.php' ?>
+
+<h1><? echo $data->name?></h1>
